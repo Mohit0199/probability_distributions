@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="home-page" class="distribution-section">
+    <h2>Probability Distributions</h2>
+    <p>
+        Probability distributions are fundamental in statistics and probability theory.
+        They allow us to grasp the likelihood of different outcomes in random events.
+        Consider scenarios like rolling a die or predicting the weather — probability distributions
+        provide a method to quantify the probability of each potential outcome.<br>
+        There are primarily two types of distributions: discrete and continuous.
+        Discrete distributions, such as those seen in dice rolls, assume distinct values.
+        Continuous distributions, on the other hand, cover a range of possible values,
+        making them suitable for measurements like temperature or height.<br>
+        Each distribution possesses a unique shape, defined by parameters like mean (average) and variance (spread).
+        For instance, the normal distribution is recognized for its bell-shaped curve, where the majority of data
+        points gather around the mean.<br>
+        These distributions are invaluable across various fields, aiding statisticians, scientists, and analysts
+        in making predictions, testing hypotheses, and uncovering patterns in data.
+    </p>
+    <h3>Explore Different Distributions</h3>
+    <ul class="distribution-list">
+        {% for dist in distributions %}
+        <li class="distribution-list-item"><a href="{{ url_for('distribution', dist_name=dist) }}">{{ dist }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,503 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Section for displaying distribution-specific information -->
+            <div id="distribution-info">
+                {% if dist_name == "Bernoulli" %}
+                    <h1>Bernoulli Distribution</h1>
+                    <p>The Bernoulli distribution, named after Swiss mathematician Jacob Bernoulli,
+                        is the discrete probability distribution of a random variable which takes the value 1 with probability p
+                        and the value 0 with probability q = 1-p.<br>
+                        The Bernoulli distribution is a special case of the binomial distribution where a single trial
+                        is conducted (so n would be 1 for such a binomial distribution).
+                    </p>
+                    <p><strong>Parameters:</strong></p>
+                    <ul>
+                        \( 0 \leq p \leq 1 \) <br>
+                        \( q = 1 - p \)
+                    </ul>
+                    <p><strong>PMF:</strong></p>
+                    <ul>
+                        \(
+                        \begin{cases}
+                        q = 1 - p & \text{if } k = 0 \\
+                        p & \text{if } k = 1
+                        \end{cases}
+                        \)
+                    </ul>
+                    <p><strong>CDF:</strong></p>
+                    <ul>
+                        \(
+                        \begin{cases}
+                        0 & \text{if } k < 0 \\
+                        1 - p & \text{if } 0 \leq k < 1 \\
+                        1 & \text{if } k \geq 1
+                        \end{cases}
+                        \)
+                    </ul>
+                    <p><strong>Mean:</strong></p>
+                    <ul>
+                        \( p \)
+                    </ul>
+                    <p><strong>Variance:</strong></p>
+                    <ul>
+                        \( p(1-p) = pq \)
+                    </ul>
+
+                {% elif dist_name == "Binomial" %}
+                    <h1>Binomial Distribution</h1>
+                    <p>
+                        The binomial distribution with parameters n and p is the discrete probability distribution of the number
+                        of successes in a sequence of n independent experiments, each asking a yes-no question,
+                        and each with its own Boolean-valued outcome: success (with probability p) or failure (with probability q = 1-p)<br>
+                        A single success/failure experiment is also called a Bernoulli trial or Bernoulli experiment, and a
+                        sequence of outcomes is called a Bernoulli process; for a single trial, i.e., n = 1, the binomial distribution
+                        is a Bernoulli distribution.
+                    </p>
+                    <p><strong>Parameters:</strong></p>
+                    <ul>
+                        \( n \in \{0, 1, 2, \ldots\} \) -- number of trials <br>
+                        \( p \in [0, 1] \) -- success probability for each trial <br>
+                        \( q = 1 - p \)                        
+                    </ul>
+                    <p><strong>PMF:</strong></p>
+                    <ul>
+                        \(\binom{n}{k} p^k (q)^{n - k} \)
+                    </ul>
+                    <p><strong>CDF:</strong></p>
+                    <ul>
+                        \(F(X \leq k) = \sum_{i=0}^{k} \binom{n}{i} p^i (1 - p)^{n - i} \)
+                    </ul>
+                    <p><strong>Mean:</strong></p>
+                    <ul>
+                        \( np \)
+                    </ul>
+                    <p><strong>Variance:</strong></p>
+                    <ul>
+                        \( npq = np(1 - p)\)
+                    </ul>
+
+                {% elif dist_name == "Poisson" %}
+                    <h1>Poisson Distribution</h1>
+                    <p>
+                        The Poisson distribution is a discrete probability distribution that expresses the probability of a
+                        given number of events occurring in a fixed interval of time if these events occur with a known constant
+                        mean rate and independently of the time since the last event. The Poisson distribution is named after French mathematician Siméon Denis Poisson.
+                    </p>
+                    <p><strong>Parameters:</strong></p>
+                    <ul>
+                        \(\lambda\) (rate):</strong> \(\lambda \in (0,\infty)\)
+                    </ul>
+                    <p><strong>PMF:</strong></p>
+                    <ul>
+                        \( P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!} \)
+                    </ul>
+                    <p><strong>CDF:</strong></p>
+                    <ul>
+                        \( e^{-\lambda} \sum_{j=0}^{\lfloor k \rfloor} \frac{\lambda^j}{j!} \)
+                    </ul>
+                    <p><strong>Mean:</strong></p>
+                    <ul>
+                        \(\lambda\)
+                    </ul>
+                    <p><strong>Variance:</strong></p>
+                    <ul>
+                        \(\lambda\)
+                    </ul>
+
+                {% elif dist_name == "Normal" %}
+                    <h1>Normal Distribution</h1>
+                    <p>A normal distribution or Gaussian distribution is a type of continuous probability distribution for a
+                        real-valued random variable. A normal distribution is sometimes informally called a bell curve.
+                    </p>
+                    <p><strong>Parameters:</strong></p>
+                    <ul>
+                        \(\mu \in \mathbb{R}\): mean (location) <br>
+                        \(\sigma^2 \in \mathbb{R}_{>0}\):variance (squared scale)
+                    </ul>
+                    <p><strong>PDF:</strong></p>
+                    <ul>
+                        \( \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}} \)
+                    </ul>
+                    <p><strong>CDF:</strong></p>
+                    <ul>
+                        \(\Phi \left( \frac{x-\mu}{\sigma} \right) = \frac{1}{2} \left[ 1 + \operatorname{erf} \left( \frac{x-\mu}{\sigma \sqrt{2}} \right) \right] \)
+                    </ul>
+                    <p><strong>Mean:</strong></p>
+                    <ul>
+                        \( \mu \)
+                    </ul>
+                    <p><strong>Variance:</strong></p>
+                    <ul>
+                        \( \sigma^2 \)
+                    </ul>
+
+                {% elif dist_name == "Standard Normal" %}
+                    <h1>Standard Normal Distribution</h1>
+                    <p>
+                        The standard normal distribution, also known as the Z-distribution, plays a crucial role in probability and statistics.
+                        The standard normal distribution has a mean of zero (μ=0) and a standard deviation of one (σ=1).
+                        It is denoted by the letter Z.<br><br>
+                        Within the standard normal distribution:<br>
+                        Approximately 68% of observations lie within 1 standard deviation of the mean.<br>
+                        About 95% lie within 2 standard deviations of the mean.<br>
+                        Nearly 99.9% lie within 3 standard deviations of the mean.
+                    </p>
+                    
+
+                {% elif dist_name == "Student's t" %}
+                    <h1>Student's t Distribution</h1>
+                    <p>
+                        Student's t distribution (or simply the t distribution) is a continuous probability distribution that
+                        generalizes the standard normal distribution.<br>
+                        Like the latter, it is symmetric around zero and bell-shaped.<br>
+                        However, \( t_{\nu} \) (Student's t distribution) has heavier tails, and the amount of
+                        probability mass in the tails is controlled by the parameter \( \nu \).<br>
+                        For \( \nu = 1 \), the Student's t distribution \( t_{\nu} \) becomes the standard Cauchy distribution,
+                        which has very "fat" tails.<br>
+                        As \( \nu \rightarrow \infty \),
+                        it approaches the standard normal distribution \( \mathcal{N}(0,1) \), which has very "thin" tails.
+                    </p>
+                    <p><strong>Parameters:</strong></p>
+                    <ul>
+                        \( \nu > 0 \): degrees of freedom (real, almost always a positive integer)
+                    </ul>
+                    <p><strong>PDF:</strong></p>
+                    <ul>
+                        \( \frac{\Gamma \left( \frac{\nu + 1}{2} \right)}{\sqrt{\pi \nu} \, \Gamma \left( \frac{\nu}{2} \right)} \left( 1 + \frac{x^2}{\nu} \right)^{-\frac{\nu + 1}{2}} \)
+                    </ul>
+                    <p><strong>CDF:</strong></p>
+                    <ul>
+                        {% raw %}
+                        \(
+                        \frac{1}{2} + x \Gamma \left( \frac{\nu + 1}{2} \right) \times \frac{{{}_{2}F_{1}\left( \frac{1}{2}, \frac{\nu + 1}{2}; \frac{3}{2}; -\frac{x^{2}}{\nu} \right)}}{\sqrt{\pi \nu} \, \Gamma \left( \frac{\nu}{2} \right)}
+                        \)
+                        {% endraw %}
+                    </ul>
+                    <p><strong>Mean:</strong></p>
+                    <ul>
+                        \( \displaystyle 0 \quad \text{for } \nu > 1\), otherwise undefined
+                    </ul>
+                    <p><strong>Variance:</strong></p>
+                    <ul>
+                        \(
+                        \displaystyle \frac{\nu}{\nu - 2} \quad \text{for } \nu > 2, \quad \infty \quad \text{for } 1 < \nu \leq 2, \quad \text{otherwise undefined}
+                        \)
+                    </ul>
+
+                {% elif dist_name == "Uniform" %}
+                    <h1>Continuous Uniform Distribution</h1>
+                    <p>
+                        In probability theory and statistics, the continuous uniform distributions or rectangular distributions are a family of symmetric probability distributions.<br>
+                        Such a distribution describes an experiment where there is an arbitrary outcome that lies between certain bounds.<br>
+                        The bounds are defined by the parameters, a and b, which are the minimum and maximum values.<br>
+                        The interval can either be closed (i.e. [a, b]) or open (i.e. (a, b)).<br>
+                        Therefore, the distribution is often abbreviated U(a,b), where U stands for uniform distribution.<br>
+                        The difference between the bounds defines the interval length; all intervals of the same length on the distribution's support are equally probable.
+                    </p>
+                    <p><strong>Parameters:</strong></p>
+                    <ul>
+                        \({\displaystyle -\infty < a < b < \infty}\)
+                    </ul>
+                    <p><strong>PDF:</strong></p>
+                    <ul>
+                        \(
+                        {\begin{cases}
+                        {\frac {1}{b-a}} & \text{for } x \in [a,b] \\
+                        0 & \text{otherwise}
+                        \end{cases}}
+                        \)
+                    </ul>
+                    <p><strong>CDF:</strong></p>
+                    <ul>
+                        \(
+                        {\begin{cases}
+                        0 & \text{for } x < a \\
+                        \frac{x - a}{b - a} & \text{for } x \in [a, b] \\
+                        1 & \text{for } x > b
+                        \end{cases}}
+                        \)
+                    </ul>
+                    <p><strong>Mean:</strong></p>
+                    <ul>
+                        \( {\displaystyle {\tfrac {1}{2}}(a+b)} \)
+                    </ul>
+                    <p><strong>Variance:</strong></p>
+                    <ul>
+                        \( {\displaystyle {\tfrac {1}{12}}(b-a)^{2}} \)
+                    </ul>
+
+                {% elif dist_name == "Log Normal" %}
+                    <h1>Log Normal Distribution</h1>
+                    <p>
+                        A log-normal distribution is a continuous probability distribution of a random variable whose logarithm is normally distributed.<br>
+                        Thus, if the random variable X is log-normally distributed, then Y = ln(X) has a normal distribution.<br>
+                        Equivalently, if Y has a normal distribution, then the exponential function of Y, X = exp(Y) , has a log-normal distribution.<br>
+                        A random variable that is log-normally distributed takes only positive real values.
+                    </p>
+                    <p><strong>Parameters:</strong></p>
+                    <ul>
+                        \(\mu \in (-\infty, +\infty)\) (logarithm of location) <br>
+                        \(\sigma > 0\) (logarithm of scale)
+                    </ul>
+                    <p><strong>PDF:</strong></p>
+                    <ul>
+                        \( {\displaystyle \frac{1}{x \sigma \sqrt{2\pi}} \exp \left(-\frac{(\ln x - \mu)^{2}}{2\sigma^{2}}\right)} \)
+                    </ul>
+                    <p><strong>CDF:</strong></p>
+                    <ul>
+                        \(
+                        {\frac {1}{2}}\left[1+\operatorname{erf}\left({\frac {\ln x - \mu}{\sigma \sqrt{2}}}\right)\right] = \Phi \left({\frac {\ln(x) - \mu}{\sigma}}\right)
+                        \)            
+                    </ul>
+                    <p><strong>Mean:</strong></p>
+                    <ul>
+                        \( {\displaystyle \exp \left(\mu + \frac{\sigma ^{2}}{2}\right)} \)
+                    </ul>
+                    <p><strong>Variance:</strong></p>
+                    <ul>
+                        \( {\displaystyle \left[\exp(\sigma ^{2})-1\right]\exp \left(2\mu +\sigma ^{2}\right)} \)
+                    </ul>
+
+                {% elif dist_name == "Chi-Square" %}
+                    <h1>Chi-Square Distribution</h1>
+                    <p>
+                        The chi-squared distribution (also chi-square or \(\chi^{2}\) (chi-squared) distribution) with k degrees of freedom is the distribution of a sum of the squares of k independent standard normal random variables.<br>
+                        The chi-squared distribution is used in the common chi-squared tests for goodness of fit of an observed distribution to a theoretical one, the independence of two criteria of classification of qualitative data, and in finding the confidence interval for estimating the population standard deviation of a normal distribution from a sample standard deviation.
+                    </p>
+                    <p><strong>Parameters:</strong></p>
+                    <ul>
+                        \( {\displaystyle k \in \mathbb{N}^{*}} \quad \text{(known as "degrees of freedom")}\)
+                    </ul>
+                    <p><strong>PDF:</strong></p>
+                    <ul>
+                        \( {\frac {1}{2^{k/2}\Gamma (k/2)}}\;x^{\frac{k}{2}-1}e^{-\frac{x}{2}}\)
+                    </ul>
+                    <p><strong>CDF:</strong></p>
+                    <ul>
+                        \( {\frac {1}{\Gamma (k/2)}}\;\gamma \left({\frac {k}{2}},\,{\frac {x}{2}}\right)\)
+                    </ul>
+                    <p><strong>Mean:</strong></p>
+                    <ul>
+                        \( k \)
+                    </ul>
+                    <p><strong>Variance:</strong></p>
+                    <ul>
+                        \( 2k \)
+                    </ul>
+
+                {% elif dist_name == "F-Distribution" %}
+                    <h1>F Distribution</h1>
+                    <p>
+                        The F-distribution or F-ratio, also known as Snedecor's F distribution or the Fisher-Snedecor distribution (after Ronald Fisher and George W. Snedecor), is a continuous probability distribution that arises frequently as the null distribution of a test statistic, most notably in the analysis of variance (ANOVA) and other F-tests.
+                    </p>
+                    <p><strong>Parameters:</strong></p>
+                    <ul>
+                        \( d1, d2 > 0 \) ; deg. of freedom
+                    </ul>
+                    <p><strong>PDF:</strong></p>
+                    <ul>
+                        \( {\frac {\sqrt {\frac {(d_{1}x)^{d_{1}}d_{2}^{d_{2}}}{(d_{1}x+d_{2})^{d_{1}+d_{2}}}}}{x\,\mathrm {B} \!\left({\frac {d_{1}}{2}},{\frac {d_{2}}{2}}\right)}} \)
+                    </ul>
+                    <p><strong>CDF:</strong></p>
+                    <ul>
+                        \( I_{\frac {d_{1}x}{d_{1}x+d_{2}}}\left({\frac {d_{1}}{2}},{\frac {d_{2}}{2}}\right)\)
+                    </ul>
+                    <p><strong>Mean:</strong></p>
+                    <ul>
+                        \( {\frac {d_{2}}{d_{2}-2}}\) ,for d2>2
+                    </ul>
+                    <p><strong>Variance:</strong></p>
+                    <ul>
+                        \( {\frac {2\,d_{2}^{2}\,(d_{1}+d_{2}-2)}{d_{1}(d_{2}-2)^{2}(d_{2}-4)}}\) ,for d2>4
+                    </ul>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-4">Distribution Plot</h2>
+    <div class="row">
+        <div id="distribution-form">
+            <form method="post" class="needs-validation" novalidate>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="size" class="form-label">Size:</label>
+                        <input type="number" name="size" class="form-control" value="1000" required>
+                        <div class="invalid-feedback">
+                            Please enter a valid size.
+                        </div>
+                    </div>
+            
+                    {% if dist_name == "Bernoulli" %}
+                        <div class="col-md-4">
+                            <label for="p" class="form-label">Probability (p):</label>
+                            <input type="number" name="p" step="0.01" class="form-control" value="0.5" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid probability (0-1).
+                            </div>
+                        </div>
+                    {% elif dist_name == "Binomial" %}
+                        <div class="col-md-4">
+                            <label for="n" class="form-label">Number of trials (n):</label>
+                            <input type="number" name="n" class="form-control" value="10" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid number of trials.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="p" class="form-label">Probability (p):</label>
+                            <input type="number" name="p" step="0.01" class="form-control" value="0.5" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid probability (0-1).
+                            </div>
+                        </div>
+                    {% elif dist_name == "Poisson" %}
+                        <div class="col-md-4">
+                            <label for="lam" class="form-label">Lambda:</label>
+                            <input type="number" name="lam" step="0.1" class="form-control" value="1" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid lambda (> 0).
+                            </div>
+                        </div>
+                    {% elif dist_name == "Normal" %}
+                        <div class="col-md-4">
+                            <label for="loc" class="form-label">Mean (loc):</label>
+                            <input type="number" name="loc" step="0.1" class="form-control" value="0" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid mean.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="scale" class="form-label">Standard Deviation (scale):</label>
+                            <input type="number" name="scale" step="0.1" class="form-control" value="1" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid standard deviation (> 0).
+                            </div>
+                        </div>
+                    {% elif dist_name == "Standard Normal" %}
+                        <!-- No additional parameters needed -->
+                    {% elif dist_name == "Student's t" %}
+                        <div class="col-md-4">
+                            <label for="df" class="form-label">Degrees of Freedom (df):</label>
+                            <input type="number" name="df" class="form-control" value="10" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid degrees of freedom (> 0).
+                            </div>
+                        </div>
+                    {% elif dist_name == "Uniform" %}
+                        <div class="col-md-4">
+                            <label for="low" class="form-label">Low:</label>
+                            <input type="number" name="low" step="0.1" class="form-control" value="0" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid low value.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="high" class="form-label">High:</label>
+                            <input type="number" name="high" step="0.1" class="form-control" value="1" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid high value.
+                            </div>
+                        </div>
+                    {% elif dist_name == "Log Normal" %}
+                        <div class="col-md-4">
+                            <label for="mean" class="form-label">Mean:</label>
+                            <input type="number" name="mean" step="0.1" class="form-control" value="0" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid mean.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="sigma" class="form-label">Sigma:</label>
+                            <input type="number" name="sigma" step="0.1" class="form-control" value="1" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid sigma (> 0).
+                            </div>
+                        </div>
+                    {% elif dist_name == "Chi-Square" %}
+                        <div class="col-md-4">
+                            <label for="df" class="form-label">Degrees of Freedom (df):</label>
+                            <input type="number" name="df" class="form-control" value="2" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid degrees of freedom (> 0).
+                            </div>
+                        </div>
+                    {% elif dist_name == "F-Distribution" %}
+                        <div class="col-md-4">
+                            <label for="dfnum" class="form-label">Numerator Degrees of Freedom (dfnum):</label>
+                            <input type="number" name="dfnum" class="form-control" value="2" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid numerator degrees of freedom (> 0).
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="dfden" class="form-label">Denominator Degrees of Freedom (dfden):</label>
+                            <input type="number" name="dfden" class="form-control" value="2" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid denominator degrees of freedom (> 0).
+                            </div>
+                        </div>
+                    {% endif %}
+            
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary mt-4">Generate Plot</button>
+                    </div>
+                </div>
+            </form>
+        </div>  
+    </div>
+        
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div id="distribution-plot">
+                {% if plot_div %}
+                    <div id="selected-params" class="mt-4">
+                        <h3>Selected Parameters:</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item">Size: {{ params.size }}</li>
+                            {% if dist_name == "Bernoulli" %}
+                                <li class="list-group-item">Probability (p): {{ params.p }}</li>
+                            {% elif dist_name == "Binomial" %}
+                                <li class="list-group-item">Number of trials (n): {{ params.n }}</li>
+                                <li class="list-group-item">Probability (p): {{ params.p }}</li>
+                            {% elif dist_name == "Poisson" %}
+                                <li class="list-group-item">Lambda (λ): {{ params.lam }}</li>
+                            {% elif dist_name == "Normal" %}
+                                <li class="list-group-item">Mean (loc): {{ params.loc }}</li>
+                                <li class="list-group-item">Standard Deviation (scale): {{ params.scale }}</li>
+                            {% elif dist_name == "t-Distribution" %}
+                                <li class="list-group-item">Degrees of Freedom (df): {{ params.df }}</li>
+                            {% elif dist_name == "Uniform" %}
+                                <li class="list-group-item">Low: {{ params.low }}</li>
+                                <li class="list-group-item">High: {{ params.high }}</li>
+                            {% elif dist_name == "Log Normal" %}
+                                <li class="list-group-item">Mean: {{ params.mean }}</li>
+                                <li class="list-group-item">Sigma: {{ params.sigma }}</li>
+                            {% elif dist_name == "Chi-Square" %}
+                                <li class="list-group-item">Degrees of Freedom (df): {{ params.df }}</li>
+                            {% elif dist_name == "F-Distribution" %}
+                                <li class="list-group-item">Numerator Degrees of Freedom (dfnum): {{ params.dfnum }}</li>
+                                <li class="list-group-item">Denominator Degrees of Freedom (dfden): {{ params.dfden }}</li>
+                            {% endif %}
+                        </ul>
+                </div>
+            
+                <div id="plot">
+                    {{ plot_div|safe }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    <a href="{{ url_for('home') }}" class="btn btn-primary mt-4">Back to Home</a>
+</div>
+
+{% endblock %}

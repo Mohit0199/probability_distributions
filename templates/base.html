@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Container styles */
+        #distribution-info, #distribution-form, #distribution-plot, #home-page {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            color: #343a40; /* Default text color */
+            font-family: Arial, sans-serif; /* Specify a fallback font */
+        }
+    
+        /* Headings */
+        #distribution-info h1, #distribution-form h1, #distribution-plot h1, #home-page h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #007bff; /* Heading color */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Text shadow for emphasis */
+        }
+    
+        /* Paragraphs */
+        #distribution-info p, #distribution-form p, #distribution-plot p {
+            font-size: 1.2rem;
+            color: #6c757d; /* Slightly darker text color */
+            line-height: 1.6; /* Improved readability */
+        }
+    
+        /* Lists */
+        #distribution-info ul, #distribution-form ul, #distribution-plot ul, .distribution-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+    
+        #distribution-info ul li, #distribution-form ul li, #distribution-plot ul li, .distribution-list-item {
+            background: #ffffff;
+            margin-bottom: 10px;
+            padding: 12px;
+            border: 1px solid #ced4da; /* Lighter border color */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle box shadow */
+        }
+    
+        .distribution-list-item a {
+            text-decoration: none;
+            color: #007bff; /* Link color */
+            font-weight: bold; /* Make links stand out */
+        }
+    
+        .distribution-list-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <header class="bg-dark text-light">
+        <div class="container">
+            <h1 class="my-4">{{ title }}</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+</body>
+</html>
